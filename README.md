@@ -1,6 +1,6 @@
 # Task Manager Application
 
-A full-stack task management application with authentication system built using React, Node.js, and MySQL.
+A full-stack task management application with authentication system built using React, Node.js, and PostgreSQL.
 
 ## Project Structure
 
@@ -17,7 +17,7 @@ simpleAuthenticationSystem/
 ## Prerequisites
 
 - Node.js (v16 or higher)
-- MySQL
+- Postgresql
 - Git
 
 ## Setup Instructions
@@ -46,7 +46,7 @@ npm install
    - Update the following variables:
 ```env
 PORT=5000
-MONGODB_URI=your_mongodb_connection_string
+
 JWT_SECRET=your_jwt_secret
 ```
 
@@ -58,14 +58,14 @@ npm run dev
 ### Frontend Setup
 
 1. Navigate to frontend directory:
-```bash
+
 cd frontend
-```
+
 
 2. Install dependencies:
-```bash
+
 npm install
-```
+
 
 3. Configure environment variables:
    - Copy `.env.example` to `.env`

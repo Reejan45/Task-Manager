@@ -5,7 +5,7 @@ const db = require('../config/db');
 // Helper function to generate JWT token
 const generateToken = (id, username) => {
   return jwt.sign({ id, username }, process.env.JWT_SECRET, {
-    expiresIn: '30d'
+    expiresIn: '30d',
   });
 };
 
@@ -18,20 +18,20 @@ exports.register = async (req, res) => {
     if (!username || !email || !password) {
       return res.status(400).json({
         success: false,
-        message: 'Please provide username, email, and password'
+        message: 'Please provide username, email, and password',
       });
     }
 
     // Check if user already exists
-    const [existingUsers] = await db.query(
-      'SELECT * FROM users WHERE email = ? OR username = ?',
+    const existingUsers = await db.query(
+      'SELECT * FROM users WHERE email = $1 OR username = $2',
       [email, username]
     );
 
-    if (existingUsers.length > 0) {
+    if (existingUsers.rows.length > 0) {
       return res.status(400).json({
         success: false,
-        message: 'User with this email or username already exists'
+        message: 'User with this email or username already exists',
       });
     }
 
@@ -40,20 +40,20 @@ exports.register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     // Insert new user into database
-    const [result] = await db.query(
-      'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
+    const result = await db.query(
+      'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id',
       [username, email, hashedPassword]
     );
 
     // Generate JWT token
-    const token = generateToken(result.insertId, username);
+    const token = generateToken(result.rows[0].id, username);
 
     // Set cookie with token
     res.cookie('token', token, {
       httpOnly: true,
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict'
+      sameSite: 'strict',
     });
 
     // Return user info (excluding password)
@@ -61,17 +61,17 @@ exports.register = async (req, res) => {
       success: true,
       message: 'User registered successfully',
       data: {
-        id: result.insertId,
+        id: result.rows[0].id,
         username,
         email,
-        token
-      }
+        token,
+      },
     });
   } catch (error) {
     console.error('Register error:', error);
     res.status(500).json({
       success: false,
-      message: 'Server error during registration'
+      message: 'Server error during registration',
     });
   }
 };
@@ -85,23 +85,20 @@ exports.login = async (req, res) => {
     if (!email || !password) {
       return res.status(400).json({
         success: false,
-        message: 'Please provide email and password'
+        message: 'Please provide email and password',
       });
     }
 
     // Find user by email
-    const [users] = await db.query(
-      'SELECT * FROM users WHERE email = ?',
-      [email]
-    );
+    const users = await db.query('SELECT * FROM users WHERE email = $1', [email]);
 
-    const user = users[0];
+    const user = users.rows[0];
 
     // Check if user exists and password is correct
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({
         success: false,
-        message: 'Invalid email or password'
+        message: 'Invalid email or password',
       });
     }
 
@@ -113,7 +110,7 @@ exports.login = async (req, res) => {
       httpOnly: true,
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict'
+      sameSite: 'strict',
     });
 
     // Return user info (excluding password)
@@ -124,14 +121,14 @@ exports.login = async (req, res) => {
         id: user.id,
         username: user.username,
         email: user.email,
-        token
-      }
+        token,
+      },
     });
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({
       success: false,
-      message: 'Server error during login'
+      message: 'Server error during login',
     });
   }
 };
@@ -139,29 +136,29 @@ exports.login = async (req, res) => {
 // Get current user
 exports.getMe = async (req, res) => {
   try {
-    const [users] = await db.query(
-      'SELECT id, username, email, created_at FROM users WHERE id = ?',
+    const users = await db.query(
+      'SELECT id, username, email, created_at FROM users WHERE id = $1',
       [req.user.id]
     );
 
-    const user = users[0];
+    const user = users.rows[0];
 
     if (!user) {
       return res.status(404).json({
         success: false,
-        message: 'User not found'
+        message: 'User not found',
       });
     }
 
     res.status(200).json({
       success: true,
-      data: user
+      data: user,
     });
   } catch (error) {
     console.error('Get me error:', error);
     res.status(500).json({
       success: false,
-      message: 'Server error while fetching user data'
+      message: 'Server error while fetching user data',
     });
   }
 };
@@ -170,11 +167,11 @@ exports.getMe = async (req, res) => {
 exports.logout = (req, res) => {
   res.cookie('token', 'none', {
     expires: new Date(Date.now() + 10 * 1000), // 10 seconds
-    httpOnly: true
+    httpOnly: true,
   });
 
   res.status(200).json({
     success: true,
-    message: 'User logged out successfully'
+    message: 'User logged out successfully',
   });
 };

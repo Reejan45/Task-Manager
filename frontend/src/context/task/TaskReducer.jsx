@@ -31,7 +31,7 @@ const TaskReducer = (state, action) => {
         case 'UPDATE_TASK': 
             return {
                 ...state,
-                tasks: state.tasks.map(task => task._id === action.payload._id ? action.payload : task),
+                tasks: state.tasks.map(task => task.id === action.payload.id ? action.payload : task),
                 loading: false    
             };
         case 'TASK_ERROR':

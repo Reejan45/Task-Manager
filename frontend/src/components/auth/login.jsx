@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../../context/auth/AuthContext';
+import '../../styles/Login.css';
 
 const Login = () => {
   const authContext = useContext(AuthContext);
@@ -14,6 +15,8 @@ const Login = () => {
 
   const { email, password } = user;
   const [alertMessage, setAlertMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -23,6 +26,7 @@ const Login = () => {
     if (error) {
       setAlertMessage(error);
       clearErrors();
+      setIsSubmitting(false);
     }
     // eslint-disable-next-line
   }, [error, isAuthenticated]);
@@ -36,11 +40,16 @@ const Login = () => {
     if (email === '' || password === '') {
       setAlertMessage('Please fill in all fields');
     } else {
+      setIsSubmitting(true);
       login({
         email,
         password
       });
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -50,7 +59,9 @@ const Login = () => {
       </h1>
       <form onSubmit={onSubmit}>
         {alertMessage && (
-          <div className="alert alert-danger">{alertMessage}</div>
+          <div className="alert alert-danger" role="alert">
+            {alertMessage}
+          </div>
         )}
         <div className="form-group">
           <label htmlFor="email">Email</label>
@@ -60,22 +71,40 @@ const Login = () => {
             value={email}
             onChange={onChange}
             required
+            aria-label="Email Address"
           />
         </div>
         <div className="form-group">
           <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={onChange}
-            required
-          />
+          <div className="password-input-container">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              value={password}
+              onChange={onChange}
+              required
+              aria-label="Password"
+            />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="password-toggle-btn"
+              aria-label={showPassword ? 'Hide Password' : 'Show Password'}
+            >
+              {showPassword ? 'Hide' : 'Show'}
+            </button>
+          </div>
+        </div>
+        <div className="form-group">
+          <Link to="/forgot-password" className="forgot-password-link">
+            Forgot Password?
+          </Link>
         </div>
         <input
           type="submit"
-          value="Login"
+          value={isSubmitting ? 'Logging in...' : 'Login'}
           className="btn btn-primary btn-block"
+          disabled={isSubmitting}
         />
       </form>
       <p className="my-1">

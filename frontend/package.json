@@ -11,11 +11,13 @@
   },
   "dependencies": {
     "axios": "^1.8.4",
+    "font-awesome": "^4.7.0",
     "install": "^0.13.0",
     "prop-types": "^15.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-toastify": "^11.0.5"
+    "react-toastify": "^11.0.5",
+    "react-transition-group": "^4.4.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

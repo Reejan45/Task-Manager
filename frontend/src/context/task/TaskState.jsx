@@ -80,7 +80,15 @@ const TaskState = ({ children }) => {
     const updateTask = async (task) => {
         try {
             setLoading();
-            const res = await api.put(`/api/tasks/${task.id}`, task);
+            const res = await api.put(`/api/tasks/${task.id}`,
+                {
+                    title: task.title,
+                    description: task.description,
+                    priority: task.priority,
+                    dueDate: task.dueDate,
+                    completed: task.completed
+                }
+            );
 
             dispatch({
                 type: 'UPDATE_TASK',

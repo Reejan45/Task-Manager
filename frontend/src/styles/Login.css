@@ -1,0 +1,115 @@
+/* General Form Styling */
+.form-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    font-family: 'Roboto', sans-serif;
+    color: #343a40;
+  }
+  
+  h1 span {
+    color: #007bff; /* Modern blue for emphasis */
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-family: 'Roboto', sans-serif;
+    color: #343a40;
+  }
+  
+  input[type="email"],
+  input[type="password"],
+  input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    color: #343a40;
+    background: #f8f9fa;
+  }
+  
+  input[type="email"]:focus,
+  input[type="password"]:focus,
+  input[type="text"]:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+  }
+  
+  .password-input-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .password-toggle-btn {
+    margin-left: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .password-toggle-btn:hover {
+    background: #0056b3;
+  }
+  
+  .btn-primary {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 91, 179, 0.2);
+  }
+  
+  .forgot-password-link,
+  .my-1 a {
+    color: #007bff;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .forgot-password-link:hover,
+  .my-1 a:hover {
+    text-decoration: underline;
+  }
+  
+  .alert {
+    padding: 10px;
+    background: #f8d7da;
+    color: #dc3545;
+    border: 1px solid #f5c6cb;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+  }
