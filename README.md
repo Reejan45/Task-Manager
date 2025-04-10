@@ -105,6 +105,28 @@ npm run dev
 - `PUT /api/tasks/:id` - Update task (Protected)
 - `DELETE /api/tasks/:id` - Delete task (Protected)
 
+
+## Demo
+### Live Demo
+
+Live Demo Link (Add your live demo URL here)
+
+## Screenshots
+![HomePage](./images/image.png)
+
+![Register Page](./images/image-1.png)
+
+![Login Page](./images/image-2.png)
+
+![Dashboard](./images/image-3.png)
+
+## Technologies Used
+
+Frontend: React, Vite
+Backend: Node.js, Express
+Database: PostgreSQL
+Authentication: JWT
+
 ## Contributing
 
 1. Create a new branch:
