@@ -48,10 +48,9 @@ npm install
 PORT=5000
 
 JWT_SECRET=your_jwt_secret
-```
 
 4. Start the backend server:
-```bash
+
 npm run dev
 ```
 
@@ -99,7 +98,6 @@ npm run dev
 ### Authentication
 - `POST /api/auth/register` - Register new user
 - `POST /api/auth/login` - Login user
-- `GET /api/auth/profile` - Get user profile (Protected)
 
 ### Tasks
 - `GET /api/tasks` - Get all tasks (Protected)

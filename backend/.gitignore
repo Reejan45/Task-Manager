@@ -4,4 +4,6 @@
 npm-debug.log*
 yarn-debug.log*     
 
-
+#build files
+dist/
+build/
