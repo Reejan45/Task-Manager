@@ -107,9 +107,7 @@ npm run dev
 
 
 ## Demo
-### Live Demo
 
-Live Demo Link (Add your live demo URL here)
 
 ## Screenshots
 ![HomePage](./images/image.png)
