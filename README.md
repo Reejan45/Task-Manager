@@ -57,14 +57,14 @@ npm run dev
 ### Frontend Setup
 
 1. Navigate to frontend directory:
-
+```bash
 cd frontend
-
+```
 
 2. Install dependencies:
-
+```bash
 npm install
-
+```
 
 3. Configure environment variables:
    - Copy `.env.example` to `.env`
